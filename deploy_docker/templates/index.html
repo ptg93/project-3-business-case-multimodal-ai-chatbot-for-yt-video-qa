@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Video Processing App</h1>
+        </header>
+        <main>
+            <section class="upload-section">
+                <h2>Upload Video</h2>
+                <form id="upload-form">
+                    <input type="file" id="file-input" name="file" accept="video/*">
+                    <select id="process-type" name="processType">
+                        <option value="Transcription">Transcription</option>
+                        <option value="Diarization">Diarization</option>
+                    </select>
+                    <select id="mode" name="mode">
+                        <option value="Fast">Fast</option>
+                        <option value="Accurate">Accurate</option>
+                    </select>
+                    <button type="button" onclick="processVideo()">Process Video</button>
+                </form>
+                <div id="progress-container">
+                    <progress id="progress-bar" value="0" max="100"></progress>
+                    <p id="progress-text"></p>
+                </div>
+            </section>
+            <section class="chat-section" id="chat-section">
+                <h2>Chatbot</h2>
+                <div id="chat-container">
+                    <div id="chat-messages"></div>
+                    <form id="chat-form">
+                        <input type="text" id="chat-input" placeholder="Ask a question..." disabled>
+                        <button type="button" onclick="sendMessage()" disabled>Send</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

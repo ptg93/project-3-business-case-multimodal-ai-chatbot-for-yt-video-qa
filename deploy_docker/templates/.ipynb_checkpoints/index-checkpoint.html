@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category and Review Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .header, .footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .part {
+            background: #fff;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+        }
+        h2 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select, input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #333;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Category Summary and Review Classification</h1>
+        <h3>Model trained on «Consumer Reviews of Amazon Products» dataset</h3>
+    </div>
+
+    <div class="container">
+
+        <div class="content">
+
+            <!-- Part 1: Category Summary -->
+            <div class="part" id="categorySummaryPart">
+                <h2>Category Summary</h2>
+                <div class="form-group">
+                    <label for="category">Choose a Category:</label>
+                    <select id="category">
+                        <option value="Health & Beauty">Health & Beauty</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Office Supplies">Office Supplies</option>
+                        <option value="Animals & Pet Supplies">Animals & Pet Supplies</option>
+                        <option value="Home & Garden">Home & Garden</option>
+                        <option value="Electronics,Furniture">Electronics,Furniture</option>
+                        <option value="Toys & Games,Electronics">Toys & Games,Electronics</option>
+                        <option value="Electronics,Media">Electronics,Media</option>
+                        <option value="Office Supplies,Electronics">Office Supplies,Electronics</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="rating">Choose a Rating:</label>
+                    <select id="rating">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button onclick="submitCategorySummary()">Show Summary and Visualizations</button>
+            </div>
+
+            <!-- Part 2: Review Classification -->
+            <div class="part" id="reviewClassificationPart">
+                <h2>Review Classification</h2>
+                <div class="form-group">
+                    <label for="reviewInput">Paste your review:</label>
+                    <textarea id="reviewInput" rows="4"></textarea>
+                </div>
+                <button onclick="submitReviewClassification()">Classify Review</button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>2024 &copy; List of contributors</p>
+    </div>
+
+    <script>
+        function submitCategorySummary() {
+            var category = document.getElementById('category').value;
+            var rating = document.getElementById('rating').value;
+            window.location.href = 'prediction.html?type=summary&category=' + encodeURIComponent(category) + '&rating=' + encodeURIComponent(rating);
+        }
+
+        function submitReviewClassification() {
+            var reviewText = document.getElementById('reviewInput').value;
+            window.location.href = 'prediction.html?type=classification&review=' + encodeURIComponent(reviewText);
+        }
+    </script>
+
+</body>
+</html>
+
+

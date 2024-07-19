@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Processing App</title>
+</head>
+<body>
+    <h1>Video Processing App</h1>
+    <form id="upload-form" method="post" enctype="multipart/form-data">
+        <label for="source_type">Source Type:</label>
+        <select id="source_type" name="source_type">
+            <option value="upload">Upload</option>
+            <option value="youtube">YouTube</option>
+        </select><br>
+        
+        <div id="upload-div">
+            <label for="file">Upload File:</label>
+            <input type="file" id="file" name="file" accept="video/*"><br>
+        </div>
+        
+        <div id="youtube-div" style="display: none;">
+            <label for="url">YouTube URL:</label>
+            <input type="text" id="url" name="url"><br>
+        </div>
+        
+        <label for="mode">Mode:</label>
+        <select id="mode" name="mode">
+            <option value="Fast">Fast</option>
+            <option value="Accurate">Accurate</option>
+        </select><br>
+        
+        <label for="process_type">Process Type:</label>
+        <select id="process_type" name="process_type">
+            <option value="Transcription">Transcription</option>
+            <option value="Diarization">Diarization</option>
+        </select><br>
+        
+        <button type="button" onclick="processVideo()">Process Video</button>
+    </form>
+
+    <h2>Query</h2>
+    <form id="query-form" method="post">
+        <label for="query">Query:</label>
+        <input type="text" id="query" name="query"><br>
+        <button type="button" onclick="submitQuery()">Submit Query</button>
+    </form>
+
+    <script>
+        document.getElementById('source_type').addEventListener('change', function () {
+            var sourceType = this.value;
+            document.getElementById('upload-div').style.display = sourceType === 'upload' ? 'block' : 'none';
+            document.getElementById('youtube-div').style.display = sourceType === 'youtube' ? 'block' : 'none';
+        });
+
+        function processVideo() {
+            var formData = new FormData(document.getElementById('upload-form'));
+            fetch('/process', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function submitQuery() {
+            var formData = new FormData(document.getElementById('query-form'));
+            fetch('/query', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => alert(data.message))
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
